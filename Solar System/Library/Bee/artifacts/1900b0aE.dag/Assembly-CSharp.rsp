@@ -356,7 +356,6 @@
 -analyzer:"C:/Program Files/Unity 2022.3.45f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity 2022.3.45f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Resources/Scripts/AstroObject.cs"
-"Assets/Resources/Scripts/GravityManager.cs"
 "Assets/Resources/Scripts/SimManager.cs"
 -langversion:9.0
 /deterministic

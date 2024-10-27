@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\SimManager.cs" />
     <Compile Include="Assets\Resources\Scripts\AstroObject.cs" />
-    <Compile Include="Assets\Resources\Scripts\GravityManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
