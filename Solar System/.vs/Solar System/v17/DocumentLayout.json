@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "Assets\\Resources\\Scripts\\AstroObject.cs",
               "ToolTip": "C:\\Users\\Jacob\\Documents\\CS\\Edu\\4426\\Assignment 2\\2\\Solar System\\Assets\\Resources\\Scripts\\AstroObject.cs",
               "RelativeToolTip": "Assets\\Resources\\Scripts\\AstroObject.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-26T18:52:29.528Z",
               "EditorCaption": ""
@@ -45,7 +45,7 @@
               "RelativeDocumentMoniker": "Assets\\Resources\\Scripts\\SimManager.cs",
               "ToolTip": "C:\\Users\\Jacob\\Documents\\CS\\Edu\\4426\\Assignment 2\\2\\Solar System\\Assets\\Resources\\Scripts\\SimManager.cs",
               "RelativeToolTip": "Assets\\Resources\\Scripts\\SimManager.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABUAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-26T17:00:14.576Z",
               "EditorCaption": ""
@@ -60,8 +60,7 @@
               "RelativeToolTip": "Assets\\Resources\\Scripts\\GravityManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T14:50:12.046Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-26T14:50:12.046Z"
             }
           ]
         }
