@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{blindtext}
+\usepackage{titling}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{environ}
+\usepackage{cite}
+\usepackage[square,numbers]{natbib}
+
+\graphicspath{{./images/}}
+
+\NewEnviron{eq}{
+\begin{equation*}\begin{split}
+  \BODY
+\end{split}\end{equation*}
+}
+
+\NewEnviron{mhp}{
+    \begin{minipage}{0.5\textwidth}
+        \BODY
+    \end{minipage}
+}
+
+\author{.}
+\title{.}
+\date{\today}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\pagestyle{fancy}
+\setlength{\droptitle}{-10em}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand\maketitlehookb{\centering COSC1047N}
+\renewcommand\maketitlehookc{\centering 219645940}
+
+\newcommand{\m}[1]{\texttt{#1}}
+\newcommand{\bn}[1]{\m{0b#1}}
+\newcommand{\hx}[1]{\m{0x#1}}
+\newcommand{\hem}{\hspace{1em}}
+\newcommand{\vem}{\vpsace{1em}}
+\newcommand{\pgrph}[1]{\paragraph{#1}\mbox{}\\\\}
+
+\fancyhf{}
+\rhead{Solar System Sim}
+\rfoot{Page \thepage}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.90,0.90,0.90}
+\definecolor{shellcolor}{rgb}{0.1,0.5,0.2}
+
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstdefinestyle{termstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    moredelim=**[is][\color{cyan}]{@}{@},
+    moredelim=**[is][\color{shellcolor}]{!}{!}
+}
+
+\newcommand\mycite[2]{(\citealt[#2]{#1})}
+
+\begin{document}
+    \begin{titlepage}
+        \begin{center}
+            \topskip0pt
+            \vspace*{\fill}
+
+            \Huge
+            \textbf{Solar System Sim}
+
+            \vspace{0.5cm}
+            \Large
+            A VR solar system simulation.
+
+            \vspace{1.5cm}
+
+            \textbf{Jacob Burtch, Max Mcnally, Chelaka Fernando, Marizza Ranasinghe, Braeden Hong}
+
+            \Large
+            Dr. Miguel Garcia-Ruiz\\
+            Algoma University\\
+            Faculty of Computer Science and Technology\\
+            COSC4426\\
+            Sault Ste. Marie, Ontario, Canada\\
+            \today
+            \vspace*{\fill}
+        \end{center}
+    \end{titlepage}
+    \newpage
+    \section{The Simulation}
+    \section{Instructions}
+    \section{Considerations}
+    \section{Challenges}
+    \newpage
+    \bibliographystyle{IEEEtran}
+    \bibliography{refs}
+\end{document}
