@@ -5,4 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes: []
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 16bd441825b75994aac3798324ec884a, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 201442beadf802541b527afc06b0d1e4, type: 2}
