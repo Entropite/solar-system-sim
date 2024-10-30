@@ -8,19 +8,13 @@ public class CameraMovement : MonoBehaviour
     //rotation speeds
     public float horizontalMouseSensitivity = 2.0f;
     public float verticalMouseSensitivity = 2.0f;
-    public float forwardSpeed = 0.001f;
-    public float sidewaysSpeed = 0.001f;
+    public float forwardSpeed = 10.0f;
+    public float sidewaysSpeed = 10.0f;
 
 
     //current horizontal and vertical rotations
     private float horizontalRotation = 0.0f;
     private float verticalRotation = 0.0f;
-
-    private bool keyW = false;
-    private bool keyA = false;
-    private bool keyS = false;
-    private bool keyD = false;
-
 
     // Start is called before the first frame update
     void Start() { }
@@ -28,6 +22,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // transform.Translate(Vector3.forward * 10 * Time.deltaTime);
         //rotating with mouse
         horizontalRotation += horizontalMouseSensitivity * Input.GetAxis("Mouse X");
         verticalRotation -= verticalMouseSensitivity * Input.GetAxis("Mouse Y");
@@ -36,60 +31,21 @@ public class CameraMovement : MonoBehaviour
         //moving with wasd
 
         //detect keypresses/releases
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            keyW = true;
-            Debug.Log("w unpress");
+            transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
         }
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKey(KeyCode.A))
         {
-            keyW = false;
-            Debug.Log("w press");
+            transform.Translate(Vector3.left * sidewaysSpeed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.S))
         {
-            keyA = true;
+            transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKey(KeyCode.D))
         {
-            keyA = false;
+            transform.Translate(Vector3.right * sidewaysSpeed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            keyS = true;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            keyS = false;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            keyD = true;
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            keyD = false;
-        }
-
-
-        //move based on pressed keys
-        if (keyW)
-        {
-            transform.Translate(0, 0, forwardSpeed * Time.deltaTime);
-        }
-        if (keyS)
-        {
-            transform.Translate(0, 0, -forwardSpeed * Time.deltaTime);
-        }
-        if (keyA)
-        {
-            transform.Translate(-sidewaysSpeed * Time.deltaTime, 0, 0);
-        }
-        if (keyD)
-        {
-            transform.Translate(sidewaysSpeed * Time.deltaTime, 0, 0);
-        }
-
-
     }
 }
