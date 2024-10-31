@@ -16,9 +16,11 @@ public class CameraMovement : MonoBehaviour
     private float horizontalRotation = 0.0f;
     private float verticalRotation = 0.0f;
 
+    private Vector3 cameraVelocity = Vector3.zero;
+
+
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() { 
         // Disable XR controllers if not running in XR. If they are enabled, you can stil see the controller rays in desktop mode.
         if (!UnityEngine.XR.XRSettings.enabled)
         {
@@ -34,7 +36,6 @@ public class CameraMovement : MonoBehaviour
         // Don't try to move the camera when in XR
         if (!UnityEngine.XR.XRSettings.enabled)
         {
-            // transform.Translate(Vector3.forward * 10 * Time.deltaTime);
             //rotating with mouse
             horizontalRotation += horizontalMouseSensitivity * Input.GetAxis("Mouse X");
             verticalRotation -= verticalMouseSensitivity * Input.GetAxis("Mouse Y");
@@ -45,20 +46,33 @@ public class CameraMovement : MonoBehaviour
             //detect keypresses/releases
             if (Input.GetKey(KeyCode.W))
             {
-                transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+                cameraVelocity += Vector3.forward * forwardSpeed * Time.deltaTime;
             }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                cameraVelocity += Vector3.back * forwardSpeed * Time.deltaTime;
+            }
+            else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            {
+                cameraVelocity.z = 0;
+            }
+
+
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.left * sidewaysSpeed * Time.deltaTime);
+                cameraVelocity += Vector3.left * sidewaysSpeed * Time.deltaTime;
             }
-            if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.D))
             {
-                transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
+                cameraVelocity += Vector3.right * sidewaysSpeed * Time.deltaTime;
             }
-            if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
-                transform.Translate(Vector3.right * sidewaysSpeed * Time.deltaTime);
+                cameraVelocity.x = 0;
             }
+        
+
+            transform.Translate(cameraVelocity);
         }
     }
 }
