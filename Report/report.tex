@@ -127,13 +127,22 @@
     \end{titlepage}
     \newpage
     \section{The Simulation}
-    This project features a VR simulation of the solar system. This simulation includes all of the main components of the solar system. Namely, the sun and the planets. The simulation also features the Earth's moon, but not the moons of all the other planets. The application simulates the solar system with a custom gravity simulation to more accurately simulate planetary orbits. (Insert screenshots here.)
+    This project features a VR simulation of the solar system. This simulation includes all of the main components of the solar system. Namely, the sun and the planets. The simulation also features the Earth's moon, but not the moons of all the other planets. Other objects such as asteroids are simulated as well. The application simulates the solar system with a custom gravity simulation to more accurately simulate planetary orbits.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.25]{vr_test1.jpg}
+        \caption{Initial VR test of the simulation.}
+    \end{figure}
     \section{Instructions}
-    The camera can be moved by using the W, A, S, and D keys on the keyboard. (How are VR controllers used?)
+    The camera can be moved by using the W, A, S, and D keys on the keyboard, and can be panned to look around by moving the mouse.  In VR (on an Oculus touch controller), the left analog stick is used for continuous movement. Camera panning is of course done by looking around while wearing the HMD.
     \section{Considerations}
     To reduce the scope of this project, only the Earth's moon will be simulated. (What else?)
     \section{Challenges}
     The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. (Explain why?)
+
+    For project collaboration, Unity Cloud was considered, but it is only free for the first 3 seats. For this reason, we chose to use git with GitHub for source control instead.
+
+    Another point of issue during development was converting an existing Unity project to one that supports XR. While it should be very simple in theory, the Unity documentation for the version of Unity used in this project was slightly incorrect. This lead to an extended amount of time being spent trying to debug the wrong problem. The Unity documentation points to the documentation for version 3.0.3 of the ``XR Interaction Toolkit''. However, when attempting to use the Unity package manager, it claims that the latest version is 2.6.3. These two versions are completely incompatible and have different APIs. For some reason, the VR sample project uses version 3.0.3 (on the same version of Unity!), but the Unity package manager will not install it in an existing project for some reason.
     \newpage
     \bibliographystyle{IEEEtran}
     \bibliography{refs}
