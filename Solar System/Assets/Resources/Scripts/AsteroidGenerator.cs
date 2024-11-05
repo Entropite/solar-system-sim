@@ -3,7 +3,8 @@ using UnityEngine;
 public class AsteroidFieldGenerator : MonoBehaviour
 {
     public int asteroidCount = 50; // Number of asteroids to generate
-    public float fieldRadius = 50f; // Radius of the area in which asteroids are distributed
+    public float startRadius = 50f; // Radius of the area in which asteroids are distributed
+    public float endRadius = 100f;
     public int vertexCount = 100; // Number of vertices for each asteroid
     public float baseRadius = 1f; // Base radius of each asteroid
     public float displacement = 0.5f; // Maximum displacement from the base radius
@@ -13,7 +14,6 @@ public class AsteroidFieldGenerator : MonoBehaviour
     void Start()
     {
         // Load the texture from resources (make sure the texture is in the Resources folder)
-        asteroidTexture = Resources.Load<Texture>("space_asteroids_02_l_0008");
         GenerateAsteroidField();
     }
 
@@ -23,12 +23,24 @@ public class AsteroidFieldGenerator : MonoBehaviour
         {
             // Create a new empty GameObject for each asteroid
             GameObject asteroid = new GameObject("Asteroid_" + i);
-            asteroid.transform.position = Random.insideUnitSphere * fieldRadius; // Random position within the field radius
+            Vector3 randCoord = Random.insideUnitCircle * (endRadius - startRadius);
+            Vector2 circleCoords = startRadius * (Vector3.one+randCoord) / randCoord.magnitude;// Random position within the field radius
+            asteroid.transform.position = new Vector3(circleCoords.x, 0, circleCoords.y);
             asteroid.transform.parent = transform; // Set the parent to keep the hierarchy organized
 
             // Add necessary components
             MeshFilter meshFilter = asteroid.AddComponent<MeshFilter>();
             MeshRenderer meshRenderer = asteroid.AddComponent<MeshRenderer>();
+            AstroObject astro = asteroid.AddComponent<AstroObject>();
+            astro.periapsis = asteroid.transform.position.magnitude;
+            astro.apoapsis = astro.periapsis;
+            astro.mass = Random.Range(1e16f, 1e20f);
+            astro.periapsisYear = 2023;
+            astro.periapsisMonth = Random.Range(1, 12);
+            astro.periapsisDay = Random.Range(1, 28);
+            astro.orbit = GameObject.Find("Sun").GetComponent<AstroObject>();
+            astro.orbitScale = 1e-9f;
+            astro.InitPosition();
 
             // Create and assign a new material with the asteroid texture
             Material material = new Material(Shader.Find("Standard"));

@@ -18,6 +18,8 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 cameraVelocity = Vector3.zero;
 
+    public AstroObject target;
+
 
     // Start is called before the first frame update
     void Start() { 
@@ -33,46 +35,45 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Don't try to move the camera when in XR
-        if (!UnityEngine.XR.XRSettings.enabled)
+        // transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+        //rotating with mouse
+        horizontalRotation += horizontalMouseSensitivity * Input.GetAxis("Mouse X");
+        verticalRotation -= verticalMouseSensitivity * Input.GetAxis("Mouse Y");
+        transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
+
+        //moving with wasd
+
+        //detect keypresses/releases
+        if (Input.GetKey(KeyCode.W))
         {
-            //rotating with mouse
-            horizontalRotation += horizontalMouseSensitivity * Input.GetAxis("Mouse X");
-            verticalRotation -= verticalMouseSensitivity * Input.GetAxis("Mouse Y");
-            transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
 
-            //moving with wasd
-
-            //detect keypresses/releases
-            if (Input.GetKey(KeyCode.W))
-            {
-                cameraVelocity += Vector3.forward * forwardSpeed * Time.deltaTime;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                cameraVelocity += Vector3.back * forwardSpeed * Time.deltaTime;
-            }
-            else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
-            {
-                cameraVelocity.z = 0;
-            }
+            cameraVelocity += Vector3.forward * forwardSpeed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            cameraVelocity += Vector3.back * forwardSpeed * Time.deltaTime;
+        }
+        else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+        {
+            cameraVelocity.z = 0;
+        }
 
 
-            if (Input.GetKey(KeyCode.A))
-            {
-                cameraVelocity += Vector3.left * sidewaysSpeed * Time.deltaTime;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                cameraVelocity += Vector3.right * sidewaysSpeed * Time.deltaTime;
-            }
-            else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-            {
-                cameraVelocity.x = 0;
-            }
+        if (Input.GetKey(KeyCode.A))
+        {
+            cameraVelocity += Vector3.left * sidewaysSpeed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            cameraVelocity += Vector3.right * sidewaysSpeed * Time.deltaTime;
+        }
+        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            cameraVelocity.x = 0;
+        }
         
 
-            transform.Translate(cameraVelocity);
-        }
+        transform.Translate(cameraVelocity);
     }
+
 }

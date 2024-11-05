@@ -5,77 +5,92 @@ using UnityEngine;
 public class AstroObject : MonoBehaviour
 {
 
-    // mass is denoted in Earth masses (~10^24 kg)
-    public float mass = 1F;
+    // mass is denoted in kg
+    public double mass = 5.9E24F;
+
+    // rotation speed is in radians per second
+    public double rotationSpeed = 0;
+
+    // how eccentric the planet's orbit is
+    // a circular orbit has an eccentricity of 0
+    public double eccentricity = 0;
+
+    // closest distance to orbited object
+    public double periapsis = 0;
+
+    // furthest distance to orbited object
+    public double apoapsis = 0;
 
     
     public AstroObject orbit;
 
-    public Vector3 velocity;
-    public Vector3 gravity;
+    // the last time the planet reached periapsis
+    public int periapsisYear = 2023;
+    public int periapsisMonth = 12;
+    public int periapsisDay = 31;
+    public int periapsisHour = 23;
+    public int periapsisMinute = 59;
+    public int periapsisSecond = 59;
 
-    private float speedUp;
+    public float orbitScale;
+
+    private double semiMajorAxis;
+
+    private double orbitalPeriod;
+    // orbital speed is in radians/s
+    private double orbitalSpeed;
+
+    // the starting ecliptic longitude angle
+    private double startLongitude;
+
+    private Vector3 centre;
+
+    private System.DateTime periapsisDate;
     private SimManager manager;
-    private List<AstroObject> satellites = new List<AstroObject>();
 
 
     void Start()
     {
+
+        InitPosition();
+    }
+
+    public void InitPosition()
+    {
         manager = SimManager.manager;
-        speedUp = manager.speedUp;
+        if (orbit == null)
+            return;
 
-        // calculate perpendicular velocity needed to counteract gravity and start an orbit
-        if (orbit != null)
-        {
-            // Build satellite list
-            orbit.AddSatellite(this);
+        
+        // Set up orbital period, speed and starting longitude
+        semiMajorAxis = (periapsis + apoapsis) / 2;
 
-            Vector3 gravForce = manager.GetGravity(this, orbit);
-            Vector3 dir = transform.position - orbit.transform.position;
-            velocity = Mathf.Sqrt(gravForce.magnitude * dir.magnitude) * Vector3.Cross(dir, Vector3.down).normalized;
+
+        orbitalPeriod = 2 * Mathf.PI * Mathf.Sqrt((float)(Mathf.Pow((float)semiMajorAxis, 3) / (SimManager.G * (orbit.mass + mass))));
+        orbitalSpeed = 2 * Mathf.PI / orbitalPeriod;
 
             
-        }
-
-        StartCoroutine(UpdateSatelliteVelocities());
+        periapsisDate = new System.DateTime(periapsisYear, periapsisMonth, periapsisDay, periapsisHour, periapsisMinute, periapsisSecond);
+        startLongitude = orbitalSpeed * manager.startDate.Subtract(periapsisDate).TotalSeconds / (2 * Mathf.PI);
     }
 
-    private IEnumerator UpdateSatelliteVelocities()
+    private Vector3 GetCentre()
     {
-        // must wait until all of the initial velocities have been calculated
-        yield return new WaitForEndOfFrame();
+        return orbit.transform.position + orbitScale * Vector3.right * (float)(semiMajorAxis * eccentricity);
+    }
 
-        // satellites must be updated to account for a velocity change
-        // at least one object must have no orbit
+    public void UpdateOrbit(double totalTime, double updateTime)
+    {
         if (orbit == null)
-        {
-            UpdateSatellites();
-        }
+            return;
 
-    }
+        transform.Rotate(0, (float)(360 * rotationSpeed * updateTime / (2 * Mathf.PI)), 0);
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Vector3 acc = gravity / mass;
-        velocity += acc * speedUp;
-        transform.Translate(velocity * speedUp);
+        double angularRotation = startLongitude + orbitalSpeed * totalTime;
 
-    }
-
-    public void UpdateSatellites()
-    {
-        foreach (AstroObject sat in satellites)
-        {
-            Debug.Log(sat);
-            sat.velocity += velocity;
-            sat.UpdateSatellites();
-        }
-    }
-
-    public void AddSatellite(AstroObject satellite)
-    {
-        satellites.Add(satellite);
+        double currentRadius = orbitScale * semiMajorAxis * (1 - eccentricity * eccentricity) / (1 + eccentricity * Mathf.Cos((float)angularRotation));
+        transform.position = GetCentre() + new Vector3((float)(currentRadius * Mathf.Cos((float)angularRotation)), 0,
+                                        (float)(currentRadius * Mathf.Sin((float)angularRotation)));
     }
 
 

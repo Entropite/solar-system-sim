@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimManager : MonoBehaviour
 {
@@ -10,6 +11,18 @@ public class SimManager : MonoBehaviour
     public static SimManager manager {get; private set;}
 
     private List<AstroObject> astroObjects;
+
+    private float totalTime = 0;
+    
+    public int startYear;
+    public int startMonth;
+    public int startDay;
+    private System.DateTime date;
+    public System.DateTime startDate;
+
+    private Text dateText;
+    private Slider dateSlider;
+
 
 
     void Awake()
@@ -23,41 +36,41 @@ public class SimManager : MonoBehaviour
             manager = this;
         }
 
+        dateText = GameObject.Find("Date").GetComponent<Text>();
+        dateSlider = GameObject.Find("DateSlider").GetComponent<Slider>();
+
+        startDate = new System.DateTime(startYear, startMonth, startDay, 0, 0, 0);
+        date = new System.DateTime(startYear, startMonth, startDay, 0, 0, 0);
 
         astroObjects = new List<AstroObject>(FindObjectsOfType<AstroObject>());
     }
 
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdateGravity();
+        dateText.text = date.ToString("HH:mm:ss yyyy-MM-dd G\\MT");
+        foreach (AstroObject astro in astroObjects)
+        {
+            astro.UpdateOrbit(date.Subtract(startDate).TotalSeconds, Time.deltaTime * speedUp);
+        }
+
+        date = date.AddSeconds(speedUp * Time.deltaTime);
     }
 
-    private void UpdateGravity()
+    public void UpdateSpeedUp()
     {
-        Vector3[] gravForces = new Vector3[astroObjects.Count];
-        for (int i = 0; i < astroObjects.Count - 1; i++)
-        {
-            for (int j = i + 1; j < astroObjects.Count; j++) {
-                AstroObject body1 = astroObjects[i];
-                AstroObject body2 = astroObjects[j];
-                Vector3 gravForce = GetGravity(body1, body2);
-                gravForces[i] += -gravForce;
-                gravForces[j] += gravForce;
-            }
-        }
 
-        for(int i = 0; i < astroObjects.Count; i++)
-        {
-            astroObjects[i].gravity = gravForces[i];
-        }
+        speedUp = 1 + dateSlider.value * 1000000;
     }
+
 
     public Vector3 GetGravity(AstroObject body1, AstroObject body2)
     {
         Vector3 dir = body1.transform.position - body2.transform.position;
 
-        return dir.normalized * (G * body1.mass * body2.mass) / (dir.magnitude * dir.magnitude);
+        return dir.normalized * (float)(G * body1.mass * body2.mass) / (dir.magnitude * dir.magnitude);
 
     }
 }
