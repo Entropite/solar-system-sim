@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Resources\Scripts\SimManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\AsteroidGenerator.cs" />
     <Compile Include="Assets\Resources\Scripts\AstroObject.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -948,10 +949,6 @@
       <HintPath>Library\ScriptAssemblies\UnityEditor.SpatialTracking.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
       <Private>False</Private>
@@ -986,6 +983,10 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
