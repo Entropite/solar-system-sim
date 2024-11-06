@@ -121,7 +121,8 @@
             Faculty of Computer Science and Technology\\
             COSC4426\\
             Sault Ste. Marie, Ontario, Canada\\
-            \today
+            \today\\
+            \href{https://github.com/Entropite/solar-system-sim}{https://github.com/Entropite/solar-system-sim}\\
             \vspace*{\fill}
         \end{center}
     \end{titlepage}
@@ -162,13 +163,13 @@
         \caption{Some of the moons of Jupiter.}
         \label{jupiter}
     \end{figure}
-    
+
     To reduce the scope of this project, not all moons of every planet will be simulated. Some planets, for example Saturn, have more moons than would be feasible to show in this simulation. For planets with many moons, only a select few were simulated (see figure \ref{jupiter}).
 
     To enhance the visual appeal of the simulation, a random distribution of asteroids will be spawned to simulate the asteroid belt. These asteroids have no consequences on the rest of the simulation however as they will not interact with any of the planets in any meaningful way.
     \section{Challenges}
-    
-    The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. The Unity physics engine is a good fit for games that usually take place in some world with Earth-like gravity, but it does not offer the appropriate functionality for simulating planetary motion. Since the motion of rigidbodies is dependent upon a built-in \emph{timeScale } variable, if rigidbodies were relied upon, the simulation's speed would be bounded by the \emph{timeScale} variable. Since this variable has a maximum value of 100, the simulation would progress slowly. Freed of this limitation, the simulation can simulate years in mere seconds.
+
+    The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. The Unity physics engine is a good fit for games that usually take place in some world with Earth-like gravity, but it does not offer the appropriate functionality for simulating planetary motion. Since the motion of rigidbodies is dependent upon a built-in \emph{timeScale} variable, if rigidbodies were relied upon, the simulation's speed would be bounded by the \emph{timeScale} variable. Since this variable has a maximum value of 100, the simulation would progress slowly. Freed of this limitation, the simulation can simulate years in mere seconds.
 
     This achievement also necessitated replacing Newton's law of universal gravitation with Kepler's laws of planetary motion. The former process was rather inefficient and involved making discrete updates to the planet's position every update event. This greatly reduced the maximum speed the simulation could run at and failed to appropriately model the motion of planetary moons. By adopting Kepler's laws, the position of celestial bodies depend not on discrete updates, but only the amount of time elapsed since the simulation began. This makes calculating planetary positions a very fast operation.
 
