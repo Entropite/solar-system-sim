@@ -149,7 +149,22 @@
         \label{mouse}
     \end{figure}
     \section{Considerations}
-    To reduce the scope of this project, only the Earth's moon will be simulated. Including moons from all other planets is unnecessary for what is trying to be shown in this simulation. To enhance the visual appeal of the simulation, random asteroids will spawn and be simulated. These asteroids have no consequences on the rest of the simulation however as they will not interact with any of the planets in any meaningful way.
+    A time scale slider was added to increase/decrease the speed of the simulation, along with a label showing what the time and date is in the simulated world. This allows the user to see the actual position and rotation of the planets as they would be in the real world at that date (figure \ref{date}).
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.25]{date_time.png}
+        \caption{The simulation running showing the solar system on January 15, 2024.}
+        \label{date}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.25]{jupiter.png}
+        \caption{Some of the moons of Jupiter.}
+        \label{jupiter}
+    \end{figure}
+    To reduce the scope of this project, not all moons of every planet will be simulated. Some planets, for example Saturn, have more moons than would be feasible to show in this simulation. For planets with many moons, only a select few were simulated (see figure \ref{jupiter}).
+
+    To enhance the visual appeal of the simulation, a random distribution of asteroids will be spawned to simulate the asteroid belt. These asteroids have no consequences on the rest of the simulation however as they will not interact with any of the planets in any meaningful way.
     \section{Challenges}
     The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. The Unity physics engine is a good fit for games that usually take place in some world with Earth-like gravity, but it does not offer any functionality for simulating planetary motion.
 
