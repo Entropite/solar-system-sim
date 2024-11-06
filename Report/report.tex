@@ -127,7 +127,7 @@
     \end{titlepage}
     \newpage
     \section{The Simulation}
-    This project features a VR simulation of the solar system. This simulation includes all of the main components of the solar system. Namely, the sun and the planets. The simulation also features the Earth's moon, but not the moons of all the other planets. Other objects such as asteroids are simulated as well. The application simulates the solar system with a custom gravity simulation to more accurately simulate planetary orbits. Figure \ref{initialvr} shows the first test of the VR system in the program showing the two controller rays that show where the VR controllers are in the world.
+    This project features a VR simulation of the solar system. This simulation includes all of the main components of the solar system. Namely, the sun and the planets. The simulation also features the Earth's moon, but not the moons of all the other planets. Other objects such as asteroids are simulated as well. The application uses Kepler's laws of planetary motion to determine the orbits of celestial objects. Specifically, the simulation is built with Kepler's first and third laws in mind. The first states that every planet's orbit takes the shape of an ellipse with the sun at one of the focus points. This eccentricity inherent to orbits is very subtle and was virtually unknown until delicately calibrated scientific instruments were developed in the late 16th century. The third law describes the relationship between the time elapsed to complete an orbit and the mean distance from the sun. This relationship is illustrated well in the simulation as planets in the outer solar system orbit far slower than planets in the inner solar system.  Figure \ref{initialvr} shows the first test of the VR system in the program showing the two controller rays that show where the VR controllers are in the world.
     \begin{figure}[h]
         \centering
         \includegraphics[scale=0.25]{vr_test1.jpg}
@@ -149,7 +149,7 @@
         \label{mouse}
     \end{figure}
     \section{Considerations}
-    A time scale slider was added to increase/decrease the speed of the simulation, along with a label showing what the time and date is in the simulated world. This allows the user to see the actual position and rotation of the planets as they would be in the real world at that date (figure \ref{date}).
+    A time scale slider was added to increase/decrease the speed of the simulation, along with a label showing what the time and date is in the simulated world. This allows the user to see the position and rotation of the planets as they would be in the real world at that date (figure \ref{date}).
     \begin{figure}[h]
         \centering
         \includegraphics[scale=0.25]{date_time.png}
@@ -162,11 +162,15 @@
         \caption{Some of the moons of Jupiter.}
         \label{jupiter}
     \end{figure}
+    
     To reduce the scope of this project, not all moons of every planet will be simulated. Some planets, for example Saturn, have more moons than would be feasible to show in this simulation. For planets with many moons, only a select few were simulated (see figure \ref{jupiter}).
 
     To enhance the visual appeal of the simulation, a random distribution of asteroids will be spawned to simulate the asteroid belt. These asteroids have no consequences on the rest of the simulation however as they will not interact with any of the planets in any meaningful way.
     \section{Challenges}
-    The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. The Unity physics engine is a good fit for games that usually take place in some world with Earth-like gravity, but it does not offer any functionality for simulating planetary motion.
+    
+    The built in Unity physics engine was not very well suited for the simulation of planetary motion, and thus was replaced with a custom solution. The Unity physics engine is a good fit for games that usually take place in some world with Earth-like gravity, but it does not offer the appropriate functionality for simulating planetary motion. Since the motion of rigidbodies is dependent upon a built-in \emph{timeScale } variable, if rigidbodies were relied upon, the simulation's speed would be bounded by the \emph{timeScale} variable. Since this variable has a maximum value of 100, the simulation would progress slowly. Freed of this limitation, the simulation can simulate years in mere seconds.
+
+    This achievement also necessitated replacing Newton's law of universal gravitation with Kepler's laws of planetary motion. The former process was rather inefficient and involved making discrete updates to the planet's position every update event. This greatly reduced the maximum speed the simulation could run at and failed to appropriately model the motion of planetary moons. By adopting Kepler's laws, the position of celestial bodies depend not on discrete updates, but only the amount of time elapsed since the simulation began. This makes calculating planetary positions a very fast operation.
 
     For project collaboration, Unity Cloud was considered, but it is only free for the first 3 seats. For this reason, we chose to use git with GitHub for source control instead.
 
